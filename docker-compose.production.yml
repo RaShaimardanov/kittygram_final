@@ -1,27 +1,38 @@
+# docker-compose.production.yml
 version: '3'
 
 volumes:
-  pg_data:
-  static:
+  pg_data_kitty_production:
+  static_kitty_production:
+  media_kitty_production:
 
 services:
   db:
-    image: postgres:13
+    image: postgres:13.10
+    env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_kitty_production:/var/lib/postgresql/data
   backend:
-    build: ./backend/
+    image: shaimardanov/kittygram_backend
     env_file: .env
-  frontend:
-    env_file: .env
-    build: ./frontend/
-    command: cp -r /app/build/. /static/
     volumes:
-      - static:/static
-  gateway:
-    build: ./nginx/
+      - static_kitty_production:/backend_static/
+      - media_kitty_production:/app/media/cats/images/
+    depends_on:
+    - db
+  frontend:
+    image: shaimardanov/kittygram_frontend  # Качаем с DockerHub
     env_file: .env
+    command: cp -r /app/build/. /frontend_static/
+    volumes:
+      - static_kitty_production:/frontend_static
+  gateway:
+    image: shaimardanov/kittygram_gateway  # Качаем с DockerHub
+    # env_file: .env
+    volumes:
+      - static_kitty_production:/staticfiles/
+      - media_kitty_production:/media/cats/images/
     ports:
       - 9000:80
-    volumes:
-      - static:/static
+    depends_on:
+      - backend

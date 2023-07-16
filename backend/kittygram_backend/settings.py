@@ -3,15 +3,6 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-sentry_sdk.init(
-  dsn="https://ab438d12a4624b71b190d2045f7287e6@o4505538204794880.ingest.sentry.io/4505538207940608",
-  integrations=[DjangoIntegration()],
-  traces_sample_rate=1.0,
-  send_default_pii=True
-)
 
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent

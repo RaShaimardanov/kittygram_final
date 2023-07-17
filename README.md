@@ -78,8 +78,6 @@ DB_NAME=kittygram
 Для использования Continuous Integration (CI) и Continuous Deployment (CD): в репозитории GitHub Actions `Settings/Secrets/Actions` прописать Secrets - переменные окружения для доступа к сервисам:
 
 ```
-SECRET_KEY                     # стандартный ключ, который создается при старте проекта
-
 DOCKER_USERNAME                # имя пользователя в DockerHub
 DOCKER_PASSWORD                # пароль пользователя в DockerHub
 HOST                           # ip_address сервера

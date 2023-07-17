@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = str(os.getenv('KEY'))
-DEBUG = False
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
